@@ -30,3 +30,10 @@ void  free(void* ptr ) { if ( ptr != NULL ) pdrealloc(ptr,0); }
 #endif
 
 void *swift_coroFrameAlloc(size_t bytes, unsigned long long typeId) { return pdrealloc(NULL,bytes); }
+
+int posix_memalign(void **memptr, size_t alignment, size_t size) {
+    void *ptr = pdrealloc(NULL, size);
+    if (!ptr) return 12; // ENOMEM
+    *memptr = ptr;
+    return 0;
+}
