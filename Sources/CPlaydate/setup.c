@@ -54,3 +54,9 @@ void *swift_coroFrameAlloc(size_t bytes, unsigned long long typeId) { return pdr
 // __swift_unavailable but they're still callable from C.
 int pd_rand(void) { return rand(); }
 void pd_srand(unsigned int seed) { srand(seed); }
+int posix_memalign(void **memptr, size_t alignment, size_t size) {
+    void *ptr = pdrealloc(NULL, size);
+    if (!ptr) return 12; // ENOMEM
+    *memptr = ptr;
+    return 0;
+}
